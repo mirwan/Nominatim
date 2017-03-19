@@ -1,4 +1,4 @@
-#!/usr/bin/php -Cq
+#!/usr/bin/env php -Cq
 <?php
 
 require_once(dirname(dirname(__FILE__)).'/settings/settings.php');
@@ -700,7 +700,7 @@ function pgsqlRunScriptFile($sFilename)
     if (!isset($aDSNInfo['port']) || !$aDSNInfo['port']) $aDSNInfo['port'] = 5432;
     $sCMD = 'psql -p '.$aDSNInfo['port'].' -d '.$aDSNInfo['database'];
     if (isset($aDSNInfo['hostspec']) && $aDSNInfo['hostspec']) {
-	$sCMD .= ' -h '.$aDSNInfo['hostspec']
+	$sCMD .= ' -h '.$aDSNInfo['hostspec'];
     }
 
     $ahGzipPipes = null;
@@ -753,7 +753,7 @@ function pgsqlRunScript($sScript, $bfatal = true)
     if (!isset($aDSNInfo['port']) || !$aDSNInfo['port']) $aDSNInfo['port'] = 5432;
     $sCMD = 'psql -p '.$aDSNInfo['port'].' -d '.$aDSNInfo['database'];
     if (isset($aDSNInfo['hostspec']) && $aDSNInfo['hostspec']) {
-	$sCMD .= ' -h '.$aDSNInfo['hostspec']
+	$sCMD .= ' -h '.$aDSNInfo['hostspec'];
     }
     if ($bfatal && !$aCMDResult['ignore-errors'])
         $sCMD .= ' -v ON_ERROR_STOP=1';
@@ -806,7 +806,7 @@ function pgsqlRunRestoreData($sDumpFile)
     if (!isset($aDSNInfo['port']) || !$aDSNInfo['port']) $aDSNInfo['port'] = 5432;
     $sCMD = 'pg_restore -p '.$aDSNInfo['port'].' -d '.$aDSNInfo['database']
     if (isset($aDSNInfo['hostspec']) && $aDSNInfo['hostspec']) {
-	$sCMD .= ' -h '.$aDSNInfo['hostspec']
+	$sCMD .= ' -h '.$aDSNInfo['hostspec'];
     }
     $sCMD .= ' -Fc -a '.$sDumpFile;
 
@@ -837,7 +837,7 @@ function pgsqlRunDropAndRestore($sDumpFile)
     if (!isset($aDSNInfo['port']) || !$aDSNInfo['port']) $aDSNInfo['port'] = 5432;
     $sCMD = 'pg_restore -p '.$aDSNInfo['port'].' -d '.$aDSNInfo['database']
     if (isset($aDSNInfo['hostspec']) && $aDSNInfo['hostspec']) {
-	$sCMD .= ' -h '.$aDSNInfo['hostspec']
+	$sCMD .= ' -h '.$aDSNInfo['hostspec'];
     }
     $sCMD .= ' -Fc --clean '.$sDumpFile;
 
