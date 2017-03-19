@@ -1,4 +1,4 @@
-#!/usr/bin/php -Cq
+#!/usr/bin/env php -Cq
 <?php
 
 $hFile = @fopen("wikidatawiki-20130623-pages-articles.xml", "r");

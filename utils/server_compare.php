@@ -1,4 +1,4 @@
-#!/usr/bin/php -Cq
+#!/usr/bin/env php -Cq
 <?php
 
 $sFile = "sample.log.txt"; // Apache log file
