@@ -699,6 +699,9 @@ function pgsqlRunScriptFile($sFilename)
     $aDSNInfo = DB::parseDSN(CONST_Database_DSN);
     if (!isset($aDSNInfo['port']) || !$aDSNInfo['port']) $aDSNInfo['port'] = 5432;
     $sCMD = 'psql -p '.$aDSNInfo['port'].' -d '.$aDSNInfo['database'];
+    if (isset($aDSNInfo['hostspec']) && $aDSNInfo['hostspec']) {
+	$sCMD .= ' -h '.$aDSNInfo['hostspec']
+    }
 
     $ahGzipPipes = null;
     if (preg_match('/\\.gz$/', $sFilename)) {
@@ -749,6 +752,9 @@ function pgsqlRunScript($sScript, $bfatal = true)
     $aDSNInfo = DB::parseDSN(CONST_Database_DSN);
     if (!isset($aDSNInfo['port']) || !$aDSNInfo['port']) $aDSNInfo['port'] = 5432;
     $sCMD = 'psql -p '.$aDSNInfo['port'].' -d '.$aDSNInfo['database'];
+    if (isset($aDSNInfo['hostspec']) && $aDSNInfo['hostspec']) {
+	$sCMD .= ' -h '.$aDSNInfo['hostspec']
+    }
     if ($bfatal && !$aCMDResult['ignore-errors'])
         $sCMD .= ' -v ON_ERROR_STOP=1';
     $aDescriptors = array(
@@ -798,7 +804,11 @@ function pgsqlRunRestoreData($sDumpFile)
     // Convert database DSN to psql parameters
     $aDSNInfo = DB::parseDSN(CONST_Database_DSN);
     if (!isset($aDSNInfo['port']) || !$aDSNInfo['port']) $aDSNInfo['port'] = 5432;
-    $sCMD = 'pg_restore -p '.$aDSNInfo['port'].' -d '.$aDSNInfo['database'].' -Fc -a '.$sDumpFile;
+    $sCMD = 'pg_restore -p '.$aDSNInfo['port'].' -d '.$aDSNInfo['database']
+    if (isset($aDSNInfo['hostspec']) && $aDSNInfo['hostspec']) {
+	$sCMD .= ' -h '.$aDSNInfo['hostspec']
+    }
+    $sCMD .= ' -Fc -a '.$sDumpFile;
 
     $aDescriptors = array(
                      0 => array('pipe', 'r'),
@@ -825,7 +835,11 @@ function pgsqlRunDropAndRestore($sDumpFile)
     // Convert database DSN to psql parameters
     $aDSNInfo = DB::parseDSN(CONST_Database_DSN);
     if (!isset($aDSNInfo['port']) || !$aDSNInfo['port']) $aDSNInfo['port'] = 5432;
-    $sCMD = 'pg_restore -p '.$aDSNInfo['port'].' -d '.$aDSNInfo['database'].' -Fc --clean '.$sDumpFile;
+    $sCMD = 'pg_restore -p '.$aDSNInfo['port'].' -d '.$aDSNInfo['database']
+    if (isset($aDSNInfo['hostspec']) && $aDSNInfo['hostspec']) {
+	$sCMD .= ' -h '.$aDSNInfo['hostspec']
+    }
+    $sCMD .= ' -Fc --clean '.$sDumpFile;
 
     $aDescriptors = array(
                      0 => array('pipe', 'r'),
