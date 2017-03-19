@@ -182,6 +182,15 @@ if ($aCMDResult['import-data'] || $aCMDResult['all']) {
     $osm2pgsql .= ' -lsc -O gazetteer --hstore --number-processes 1';
     $osm2pgsql .= ' -C '.$iCacheMemory;
     $osm2pgsql .= ' -P '.$aDSNInfo['port'];
+    if (isset($aDSNInfo['username']) && $aDSNInfo['username']) {
+	$osm2pgsql .= ' -U '.$aDSNInfo['username'];
+    }
+    if (isset($aDSNInfo['password']) && $aDSNInfo['password']) {
+        $osm2pgsql .= ' -W';
+    }
+    if (isset($aDSNInfo['hostspec']) && $aDSNInfo['hostspec']) {
+	$osm2pgsql .= ' -H '.$aDSNInfo['hostspec'];
+    }
     $osm2pgsql .= ' -d '.$aDSNInfo['database'].' '.$aCMDResult['osm-file'];
     passthruCheckReturn($osm2pgsql);
 
