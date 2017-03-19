@@ -1,4 +1,4 @@
-#!/usr/bin/env php -Cq
+#!/usr/bin/php -Cq
 <?php
 
 require_once(dirname(dirname(__FILE__)).'/settings/settings.php');
