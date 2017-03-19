@@ -804,7 +804,7 @@ function pgsqlRunRestoreData($sDumpFile)
     // Convert database DSN to psql parameters
     $aDSNInfo = DB::parseDSN(CONST_Database_DSN);
     if (!isset($aDSNInfo['port']) || !$aDSNInfo['port']) $aDSNInfo['port'] = 5432;
-    $sCMD = 'pg_restore -p '.$aDSNInfo['port'].' -d '.$aDSNInfo['database']
+    $sCMD = 'pg_restore -p '.$aDSNInfo['port'].' -d '.$aDSNInfo['database'];
     if (isset($aDSNInfo['hostspec']) && $aDSNInfo['hostspec']) {
 	$sCMD .= ' -h '.$aDSNInfo['hostspec'];
     }
@@ -835,7 +835,7 @@ function pgsqlRunDropAndRestore($sDumpFile)
     // Convert database DSN to psql parameters
     $aDSNInfo = DB::parseDSN(CONST_Database_DSN);
     if (!isset($aDSNInfo['port']) || !$aDSNInfo['port']) $aDSNInfo['port'] = 5432;
-    $sCMD = 'pg_restore -p '.$aDSNInfo['port'].' -d '.$aDSNInfo['database']
+    $sCMD = 'pg_restore -p '.$aDSNInfo['port'].' -d '.$aDSNInfo['database'];
     if (isset($aDSNInfo['hostspec']) && $aDSNInfo['hostspec']) {
 	$sCMD .= ' -h '.$aDSNInfo['hostspec'];
     }
