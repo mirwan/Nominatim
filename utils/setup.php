@@ -89,7 +89,18 @@ if ($aCMDResult['create-db'] || $aCMDResult['all']) {
     if (!PEAR::isError($oDB)) {
         fail('database already exists ('.CONST_Database_DSN.')');
     }
-    passthruCheckReturn('createdb -E UTF-8 -p '.$aDSNInfo['port'].' '.$aDSNInfo['database']);
+    $sCMD = 'createdb -E UTF-8 -p '.$aDSNInfo['port'];
+    if (isset($aDSNInfo['username']) && $aDSNInfo['username']) {
+	$sCMD .= ' -U '.$aDSNInfo['username'];
+    }
+    if (isset($aDSNInfo['password']) && $aDSNInfo['password']) {
+        $sCMD = 'PGPASSWORD='. $aDSNInfo['password'] .' '. $sCMD;
+    }
+    if (isset($aDSNInfo['hostspec']) && $aDSNInfo['hostspec']) {
+	$sCMD .= ' -h '.$aDSNInfo['hostspec'];
+    }
+    $sCMD .= ' '.$aDSNInfo['database']);
+    passthruCheckReturn($sCMD);
 }
 
 if ($aCMDResult['setup-db'] || $aCMDResult['all']) {
