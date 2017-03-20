@@ -99,7 +99,7 @@ if ($aCMDResult['create-db'] || $aCMDResult['all']) {
     if (isset($aDSNInfo['hostspec']) && $aDSNInfo['hostspec']) {
 	$sCMD .= ' -h '.$aDSNInfo['hostspec'];
     }
-    $sCMD .= ' '.$aDSNInfo['database']);
+    $sCMD .= ' '.$aDSNInfo['database'];
     passthruCheckReturn($sCMD);
 }
 
@@ -592,7 +592,17 @@ if ($aCMDResult['osmosis-init'] || ($aCMDResult['all'] && !$aCMDResult['drop']))
 if ($aCMDResult['index'] || $aCMDResult['all']) {
     $bDidSomething = true;
     $sOutputFile = '';
-    $sBaseCmd = CONST_InstallPath.'/nominatim/nominatim -i -d '.$aDSNInfo['database'].' -P '.$aDSNInfo['port'].' -t '.$iInstances.$sOutputFile;
+    $sBaseCmd = CONST_InstallPath.'/nominatim/nominatim -i -d '.$aDSNInfo['database'].' -P '.$aDSNInfo['port'].' -t ';
+    if (isset($aDSNInfo['username']) && $aDSNInfo['username']) {
+	$sBaseCmd .= ' -U '.$aDSNInfo['username'];
+    }
+    if (isset($aDSNInfo['password']) && $aDSNInfo['password']) {
+        $sBaseCmd = ' -W';
+    }
+    if (isset($aDSNInfo['hostspec']) && $aDSNInfo['hostspec']) {
+	$sBaseCmd .= ' -H '.$aDSNInfo['hostspec'];
+    }
+    $sBaseCmd .= $iInstances.$sOutputFile;
     passthruCheckReturn($sBaseCmd.' -R 4');
     if (!$aCMDResult['index-noanalyse']) pgsqlRunScript('ANALYSE');
     passthruCheckReturn($sBaseCmd.' -r 5 -R 25');
