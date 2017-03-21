@@ -602,7 +602,7 @@ if ($aCMDResult['index'] || $aCMDResult['all']) {
     if (isset($aDSNInfo['hostspec']) && $aDSNInfo['hostspec']) {
 	$sBaseCmd .= ' -H '.$aDSNInfo['hostspec'];
     }
-    $sBaseCmd .= $iInstances.$sOutputFile;
+    $sBaseCmd .= ' '.$iInstances.$sOutputFile;
     passthruCheckReturn($sBaseCmd.' -R 4');
     if (!$aCMDResult['index-noanalyse']) pgsqlRunScript('ANALYSE');
     passthruCheckReturn($sBaseCmd.' -r 5 -R 25');
