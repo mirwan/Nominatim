@@ -597,7 +597,7 @@ if ($aCMDResult['index'] || $aCMDResult['all']) {
 	$sBaseCmd .= ' -U '.$aDSNInfo['username'];
     }
     if (isset($aDSNInfo['password']) && $aDSNInfo['password']) {
-        $sBaseCmd .= ' -W';
+        $sBaseCmd = 'PGPASS='.$aDSNInfo['password'].' '.$sBaseCmd;
     }
     if (isset($aDSNInfo['hostspec']) && $aDSNInfo['hostspec']) {
 	$sBaseCmd .= ' -H '.$aDSNInfo['hostspec'];
