@@ -592,7 +592,7 @@ if ($aCMDResult['osmosis-init'] || ($aCMDResult['all'] && !$aCMDResult['drop']))
 if ($aCMDResult['index'] || $aCMDResult['all']) {
     $bDidSomething = true;
     $sOutputFile = '';
-    $sBaseCmd = CONST_InstallPath.'/nominatim/nominatim -i -d '.$aDSNInfo['database'].' -P '.$aDSNInfo['port'].' -t ';
+    $sBaseCmd = CONST_InstallPath.'/nominatim/nominatim';
     if (isset($aDSNInfo['username']) && $aDSNInfo['username']) {
 	$sBaseCmd .= ' -U '.$aDSNInfo['username'];
     }
@@ -602,7 +602,7 @@ if ($aCMDResult['index'] || $aCMDResult['all']) {
     if (isset($aDSNInfo['hostspec']) && $aDSNInfo['hostspec']) {
 	$sBaseCmd .= ' -H '.$aDSNInfo['hostspec'];
     }
-    $sBaseCmd .= ' '.$iInstances.$sOutputFile;
+    $sBaseCmd .= ' -i -d '.$aDSNInfo['database'].' -P '.$aDSNInfo['port'].' -t '.$iInstances.$sOutputFile;
     passthruCheckReturn($sBaseCmd.' -R 4');
     if (!$aCMDResult['index-noanalyse']) pgsqlRunScript('ANALYSE');
     passthruCheckReturn($sBaseCmd.' -r 5 -R 25');
