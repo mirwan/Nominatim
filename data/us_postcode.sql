@@ -26,7 +26,7 @@ CREATE TABLE us_postcode (
 );
 
 
-ALTER TABLE public.us_postcode OWNER TO mqmgr;
+-- ALTER TABLE public.us_postcode OWNER TO mqmgr;
 
 --
 -- Data for Name: us_postcode; Type: TABLE DATA; Schema: public; Owner: mqmgr
