@@ -197,7 +197,7 @@ if ($aCMDResult['import-data'] || $aCMDResult['all']) {
 	$osm2pgsql .= ' -U '.$aDSNInfo['username'];
     }
     if (isset($aDSNInfo['password']) && $aDSNInfo['password']) {
-        $osm2pgsql = 'PGPASS='. $aDSNInfo['password'] .' '. $osm2pgsql;
+        $osm2pgsql = 'PGPASSWORD='. $aDSNInfo['password'] .' '. $osm2pgsql;
     }
     if (isset($aDSNInfo['hostspec']) && $aDSNInfo['hostspec']) {
 	$osm2pgsql .= ' -H '.$aDSNInfo['hostspec'];
